@@ -1,0 +1,12 @@
+.btn {
+  background-color: var(--button-bg);
+  padding: 0.8rem 1.2rem;
+  color: #f7fee7;
+  font-weight: bold;
+  font-size: 1.6rem;
+
+}
+
+.btn:hover {
+  background-color: var(--button-bg-hover);
+}

@@ -1,0 +1,9 @@
+.list {
+  margin-top: 2rem;
+  padding: 0.8rem 1.2rem;
+  background-color: var(--add-tasklist-bg);
+}
+
+.list li:not(:last-child) {
+margin-bottom: 0.6rem;
+}

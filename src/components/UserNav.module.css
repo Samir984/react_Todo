@@ -1,0 +1,16 @@
+.nav {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter {
+  width: 16rem;
+  font-size: 1.6rem;
+  outline: none;
+}
+
+.addFormFilter {
+  width: 98%;
+}

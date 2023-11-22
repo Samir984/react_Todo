@@ -1,0 +1,62 @@
+:root body.light {
+  --color-outside-bg: #f1f5f9;
+  --header-bg: #0891b2;
+  --button-bg: #0891b2;
+  --button-bg-hover: #134e4a;
+  --addtask-bg: #d1d5db;
+  --addtask-title-color: #334155;
+  --addtask-label-color: #334155;
+  --add-tasklist-bg: #94a3b8;
+  --add-taskitem-bg: #f1f5f9;
+}
+
+:root body.dark {
+  --color-outside-bg: #334155;
+  --header-bg: #172554;
+  --button-bg: #172554;
+  --button-bg-hover: #1e3a8a;
+  --addtask-bg: #292524;
+  --addtask-title-color: #f1f5f9;
+  --addtask-label-color: #d1d5db;
+  --add-tasklist-bg: #1e293b;
+  --add-taskitem-bg: #cbd4e2;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--color-outside-bg);
+}
+
+.container {
+  background-color: var(--color-bg);
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+button {
+  border: none;
+  transition: all 0.3;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 0.8rem 1.6rem;
+}
+
+select {
+  padding: 0.6rem 1.2rem;
+  outline: none;
+  border: none;
+}

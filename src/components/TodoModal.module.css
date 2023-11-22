@@ -1,0 +1,75 @@
+.add_task {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 48rem;
+  transform: translate(-50%, -50%);
+  font-family: sans-serif;
+  background-color: var(--addtask-bg);
+  padding: 3.2rem 2.4rem;
+}
+.taskadd_form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.taskadd_form div:not(:last-child) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.heading {
+  text-align: center;
+  color: var(--addtask-title-color);
+  margin-bottom: 3rem;
+}
+
+.task_input {
+  width: 98%;
+}
+
+.form_label {
+  color: var(--addtask-label-color);
+  font-size: 1.6rem;
+}
+._ {
+  position: relative;
+}
+
+.close_add_task {
+  position: absolute;
+  right: -1rem;
+  top: -2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
+  width: fit-content;
+  background-color: #cecfcf;
+  transition: all 0.5s;
+  animation: closebtn_animation 1s ease;
+  animation-fill-mode: forwards;
+}
+
+.close_add_task:hover {
+  background-color: rgb(174, 177, 180);
+}
+.close_add_task:hover > svg {
+  color: rgb(19, 19, 19);
+  stroke-width: 1px;
+  text-align: right;
+}
+
+@keyframes closebtn_animation {
+  100% {
+    top: -8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .add_task {
+    width: 98%;
+  }
+}

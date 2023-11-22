@@ -1,0 +1,63 @@
+.task_item {
+  list-style: none;
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  padding: 1.2rem 2.4rem;
+  gap: 3rem;
+  background-color: var(--add-taskitem-bg);
+  transition: all 0.3s;
+  color: #000103;
+}
+
+.task_item div:last-child {
+  margin-left: auto;
+}
+
+.task_item:hover {
+  background-color: #fff;
+}
+
+.task_content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.task_title {
+  font-weight: bold;
+}
+
+.btnpair button {
+  padding: 0.4rem;
+  background: transparent;
+}
+
+.btnpair button:hover {
+  background: whitesmoke;
+}
+.edit {
+  margin-right: 1.2rem;
+}
+
+.edit > svg {
+  color: rgb(71, 253, 11);
+}
+.edit > svg:hover {
+  stroke-width: 3px;
+}
+
+.delete > svg:hover {
+  stroke-width: 1px;
+}
+.delete > svg {
+  color: rgb(225, 84, 84);
+}
+
+.checked {
+  text-decoration: line-through;
+}
+
+.completed{
+    background-color: rgb(222, 243, 197);
+}
