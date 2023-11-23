@@ -8,9 +8,6 @@ import {
   useReducer,
   useState,
 } from "react";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-
-
 
 function reducer(state, action) {
   switch (action.type) {
@@ -55,14 +52,20 @@ const KEY = "getTodoLocally";
 
 const TaskContext = createContext();
 function TaskProvider({ children }) {
-  const [value, setValue] = useLocalStorage(KEY, []);
+  const [store, setStore] = useState(() => {
+    const storeItem = localStorage.getItem(KEY);
+    console.log("d");
+    return storeItem ? JSON.parse(storeItem) : { toDo: [] };
+  });
 
-  const [{ toDo }, dispatch] = useReducer(reducer, value);
+  console.log("t");
+  const [{ toDo }, dispatch] = useReducer(reducer, store);
 
   useEffect(() => {
     const store = { toDo: toDo };
-    setValue(store);
-  }, [setValue, toDo]);
+    console.log("sss");
+    localStorage.setItem(KEY, JSON.stringify(store));
+  }, [setStore, toDo]);
 
   const [editEnable, setEditEnable] = useState(null);
   const [filter, setFilter] = useState("all");
@@ -74,13 +77,14 @@ function TaskProvider({ children }) {
   return (
     <TaskContext.Provider
       value={{
-        tasks: showFilter,
+        filterTasks: showFilter,
         dispatch,
         setEditEnable,
         editEnable,
         setFilter,
         filter,
         editTaskData,
+        totalTodos: toDo.length,
       }}
     >
       {children}

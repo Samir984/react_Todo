@@ -9,13 +9,13 @@ const style = {
 };
 
 function NoTask() {
-  const { filter } = useTask();
+  const { filter, totalTodos } = useTask();
 
   return (
     <div style={style}>
-      {filter === "completed"
+      {filter === "completed" && totalTodos !== 0
         ? "no task are completed till now"
-        : filter === "incomplete"
+        : filter === "incomplete" && totalTodos !== 0
         ? "all task are completed"
         : "no task in shedule"}
     </div>
