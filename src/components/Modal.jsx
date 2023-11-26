@@ -6,16 +6,18 @@ import { useTask } from "../context/TaskProvider";
 // eslint-disable-next-line react/prop-types
 function Modal() {
   const { setModalState, modalState } = useModal();
-  const { dispatch, editTaskData } = useTask();
+  const { dispatch, editId, tasks } = useTask();
   const openModal = modalState.modal === "open";
 
+  const taskToEdit =
+    editId === null ? null : tasks.filter((task) => task.id === editId)[0];
   return (
     <div className={openModal ? styles.modal : ""}>
       {openModal && (
         <TodoModal
           modalState={modalState}
           setModalState={setModalState}
-          editTaskData={editTaskData}
+          taskToEdit={taskToEdit}
           dispatch={dispatch}
         />
       )}

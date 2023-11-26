@@ -12,12 +12,17 @@ import {
 function reducer(state, action) {
   switch (action.type) {
     case "addTask":
-      return { ...state, toDo: [...state.toDo, action.payload] };
+      return {
+        ...state,
+        toDo: [...state.toDo, action.payload],
+        editId: null,
+      };
 
     case "deleteTask":
       return {
         ...state,
         toDo: state.toDo.filter((task) => task.id !== action.payload),
+        editId: null,
       };
 
     case "CheckToggle":
@@ -32,16 +37,23 @@ function reducer(state, action) {
               }
             : { ...task }
         ),
+        editId: null,
       };
 
-    case "editTask": {
-      const editedTask = state.toDo.map((task) =>
-        task.id === action.payload.id
-          ? { ...action.payload, id: Date.now() }
-          : task
-      );
+    case "editEnable": {
+      return { ...state, editId: action.payload };
+    }
+    case "filterType":
+      return { ...state, filterType: action.payload };
 
-      return { ...state, toDo: [...editedTask] };
+    case "updateTask": {
+      return {
+        ...state,
+        toDo: state.toDo.map((task) =>
+          task.id === state.editId ? action.payload : task
+        ),
+        editId: null,
+      };
     }
 
     default:
@@ -54,37 +66,29 @@ const TaskContext = createContext();
 function TaskProvider({ children }) {
   const [store, setStore] = useState(() => {
     const storeItem = localStorage.getItem(KEY);
-    console.log("d");
-    return storeItem ? JSON.parse(storeItem) : { toDo: [] };
+    return storeItem ? JSON.parse(storeItem) : { toDo: [], editId: null,filterType:'all' };
   });
 
-  console.log("t");
-  const [{ toDo }, dispatch] = useReducer(reducer, store);
+  const [{ toDo, filterType, editId }, dispatch] = useReducer(reducer, store);
 
   useEffect(() => {
-    const store = { toDo: toDo };
-    console.log("sss");
+    const store = { toDo: toDo,filterType:'all',editId:null };
     localStorage.setItem(KEY, JSON.stringify(store));
   }, [setStore, toDo]);
 
-  const [editEnable, setEditEnable] = useState(null);
-  const [filter, setFilter] = useState("all");
-
-  let editTaskData = toDo.find((task) => task.id === editEnable);
   const showFilter =
-    filter === "all" ? toDo : toDo.filter((task) => task.status === filter);
+    filterType === "all"
+      ? toDo
+      : toDo.filter((task) => task.status === filterType);
 
   return (
     <TaskContext.Provider
       value={{
-        filterTasks: showFilter,
+        tasks: showFilter,
         dispatch,
-        setEditEnable,
-        editEnable,
-        setFilter,
-        filter,
-        editTaskData,
+        editId,
         totalTodos: toDo.length,
+        filterType
       }}
     >
       {children}
@@ -92,6 +96,7 @@ function TaskProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTask() {
   const task = useContext(TaskContext);
   return task;

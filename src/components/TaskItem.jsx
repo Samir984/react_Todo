@@ -4,18 +4,14 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { FiEdit } from "react-icons/fi";
 import { useTask } from "../context/TaskProvider";
 import { useModal } from "../context/ModalProvider";
-import { useState } from "react";
 
 /* eslint-disable react/prop-types */
 function TaskItem({ task }) {
-  const [checked, setChecked] = useState(
-    task.status === "completed" ? true : false
-  );
+  const checked = task.status === "completed" ? true : false;
   const { setModalState } = useModal();
-  const { dispatch, setEditEnable } = useTask();
+  const { dispatch } = useTask();
   function handleChecked() {
     dispatch({ type: "CheckToggle", payload: task.id });
-    setChecked((prev) => !prev);
   }
   return (
     <li
@@ -24,7 +20,7 @@ function TaskItem({ task }) {
     `}
     >
       <div>
-        <input type="checkbox" checked={checked} onChange={handleChecked} />
+        <input type="checkbox" name='checkbox' checked={checked} onChange={handleChecked} />
       </div>
       <div className={styles.task_content}>
         <div
@@ -46,8 +42,8 @@ function TaskItem({ task }) {
         <button
           className={styles.edit}
           onClick={() => {
-            setModalState({ modal: "open", type: "editForm", editId: task.id });
-            setEditEnable(task.id);
+            setModalState({ modal: "open", type: "editForm" });
+            dispatch({ type: "editEnable", payload: task.id });
           }}
         >
           <FiEdit size={24} />

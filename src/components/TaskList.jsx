@@ -4,14 +4,14 @@ import TaskItem from "./TaskItem";
 import NoTask from "./NoTask";
 
 function TaskList() {
-  const { filterTasks } = useTask();
+  const { tasks } = useTask();
 
   return (
     <ul className={styles.list}>
-      {filterTasks.map((task) => (
+      {tasks.map((task) => (
         <TaskItem key={task.id} task={task} />
       ))}
-      {filterTasks.length === 0 && <NoTask />}
+      {tasks.length === 0 && <NoTask />}
     </ul>
   );
 }

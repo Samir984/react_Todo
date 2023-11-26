@@ -18,7 +18,8 @@ Anyone who is willing to contribute is more than welcome to do so. If you have a
 
 ## Objective
 
-- Playing with react hooks, context API, useReducer ,
+- Playing with react hooks, context API, useReducer ,react form hook
+- Reducing unnecessary render
 
 
 [Live Demo](https://react-todo12e.netlify.app/)

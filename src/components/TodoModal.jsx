@@ -4,11 +4,15 @@ import styles from "./TodoModal.module.css";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
 import { Dateformat } from "../utils/dateFormat";
+import { useEffect } from "react";
 
-function TodoModal({ modalState, setModalState, editTaskData, dispatch }) {
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: modalState.type === "editForm" ? editTaskData : {},
+function TodoModal({ modalState, setModalState, dispatch, taskToEdit }) {
+  const { register, handleSubmit, reset, setFocus } = useForm({
+    defaultValues: modalState.type === "editForm" ? taskToEdit : {},
   });
+
+  taskToEdit;
+  useEffect(() => setFocus("title"), [setFocus]);
 
   function onSubmit(data) {
     if (modalState.type === "addForm") {
@@ -16,12 +20,12 @@ function TodoModal({ modalState, setModalState, editTaskData, dispatch }) {
       dispatch({ type: "addTask", payload: data });
     } else {
       if (
-        editTaskData.title !== data.title ||
-        editTaskData.status !== data.status
+        taskToEdit.title !== data.title ||
+        taskToEdit.status !== data.status
       ) {
-        editTaskData = Dateformat(data, modalState.type);
+        const edit = Dateformat(data, modalState.type);
 
-        dispatch({ type: "editTask", payload: editTaskData });
+        dispatch({ type: "updateTask", payload: edit });
       }
     }
     reset();
@@ -33,7 +37,7 @@ function TodoModal({ modalState, setModalState, editTaskData, dispatch }) {
         <div
           className={styles.close_add_task}
           onClick={() => {
-            setModalState({ modal: "close", type: null, editId: null });
+            setModalState({ modal: "close", type: null });
           }}
         >
           <RxCross1 size={24} />
@@ -49,7 +53,7 @@ function TodoModal({ modalState, setModalState, editTaskData, dispatch }) {
           </label>
           <input
             type="text"
-            id="task"
+            id="title"
             className={styles.task_input}
             placeholder="Task Title"
             {...register("title", {
@@ -62,7 +66,7 @@ function TodoModal({ modalState, setModalState, editTaskData, dispatch }) {
           <label className={styles.form_label} htmlFor="status">
             Status :
           </label>
-          <select {...register("status")} defaultValue="incomplete">
+          <select {...register("status")} defaultValue="incomplete" id="status">
             <option value="incomplete">Incompleted</option>
             <option value="completed">completed</option>
           </select>

@@ -10,7 +10,6 @@ function Button({ children, type }) {
         setModalState({
           modal: "open",
           type: type,
-          editId: null,
         });
       }}
     >
